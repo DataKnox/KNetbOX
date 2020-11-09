@@ -9,7 +9,7 @@ def test_hosts():
     network = ipaddress.ip_network(subnet)
     for i in network.hosts():
         i = str(i)
-        toping = subprocess.Popen(['ping', '-c', '3', i], stdout=PIPE)
+        toping = subprocess.Popen(['ping', '-c', '1', i], stdout=PIPE)
         output = toping.communicate()[0]
         hostalive = toping.returncode
         if hostalive == 0:
@@ -19,6 +19,3 @@ def test_hosts():
         else:
             print(i, 'is down')
     return alive_hosts
-
-
-test_hosts()
