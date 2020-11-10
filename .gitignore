@@ -1,0 +1,4 @@
+.vscode/settings.json
+__pycache__/configer.cpython-39.pyc
+__pycache__/pinger.cpython-39.pyc
+nornir.log

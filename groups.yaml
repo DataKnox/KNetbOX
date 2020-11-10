@@ -1,0 +1,15 @@
+cisco_group:
+  connection_options:
+    scrapli:
+      extras:
+        auth_strict_key: false
+        ssh_config_file: true
+      platform: cisco_iosxe
+      port: 22
+    scrapli_netconf:
+      extras:
+        auth_strict_key: false
+        ssh_config_file: true
+      port: 830
+  password: cisco
+  username: cisco
