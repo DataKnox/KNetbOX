@@ -1,13 +1,13 @@
-10.15.0.1:
-  groups:
-  - cisco_group
-  hostname: 10.15.0.1
-  password: cisco
-  username: cisco
 10.15.0.10:
   groups:
   - cisco_group
   hostname: 10.15.0.10
+  password: cisco
+  username: cisco
+10.15.0.7:
+  groups:
+  - cisco_group
+  hostname: 10.15.0.7
   password: cisco
   username: cisco
 10.15.0.8:
