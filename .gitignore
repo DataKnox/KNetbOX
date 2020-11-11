@@ -2,3 +2,4 @@
 __pycache__/configer.cpython-39.pyc
 __pycache__/pinger.cpython-39.pyc
 nornir.log
+.env
