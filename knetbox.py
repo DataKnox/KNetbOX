@@ -14,6 +14,7 @@ import logging
 from nornir_scrapli.functions import print_structured_result
 from knetbox_getter import (
     get_dev_roles, get_dev_types, get_devices, get_manufacturers, get_sites, get_tenants)
+import json
 
 
 nb = pynetbox.api(
@@ -23,9 +24,14 @@ nb = pynetbox.api(
 
 def device_creator(task):
     # Check if device already exists
-    device = task.run(task=get_inv_details)
+    response = task.run(task=get_inv_details)
+    # print(response)
+
+    device = response[0].result
+    #print(json.dumps(device, indent=2))
     hostname = device['hostname']
     serial = device['serial']
+    # Check if device exists
     existing_devices = get_devices()
     for ex_device in existing_devices:
         if ex_device == device['hostname']:
@@ -43,23 +49,25 @@ def device_creator(task):
 
     # Handle Role ID
     existing_roles = get_dev_roles()
-    role = 'Virtual'
-    for int in device['interfaces']:
-        if int['media'] != 'Virtual':
-            role = int['media']
-        else:
-            print('Virtual device detected')
-            role = input('Choose one: ["virtual router", "virtual switch"]')
-    if role == 'Virtual':
+    role = 'virtual router'
+    for ints in device['interfaces']:
+        if ints['media'] != 'Virtual':
+            print(ints['media'])
+            role = ints['media']
+    if (role == 'virtual router') or (role == 'virtual switch'):
         tenants = get_tenants()
         for tenant in tenants:
-            if tenant['name'] == role:
+            if tenant['name'] == 'Virtual':
                 ten_id = tenant['id']
-    for ex_role in existing_roles:
-        if ex_role['name'] == role:
-            role_id = ex_role['id']
-        else:
-            print("Something went wrong with getting Role ID")
+    if (role == 'virtual router') or (role == 'virtual switch'):
+        print('validating role')
+        for ex_role in existing_roles:
+            print(ex_role['name'])
+            if ex_role['name'] == role:
+                role_id = ex_role['id']
+                print(f"{ex_role['name']} DOES match {role}")
+            else:
+                print(f"{ex_role['name']} does not match {role}")
 
     # Handle manufacturer
     # if device['platform'] in ('IOS-XE', 'IOS', 'NX-OS'):
@@ -76,8 +84,9 @@ def device_creator(task):
     dev_type = input("Select type a Dev type from above: ")
     existing_types = get_dev_types()
     for ex_type in existing_types:
-        if ex_type['name'] == dev_type:
+        if ex_type['model'] == dev_type:
             type_id = ex_type['id']
+            print(f"{ex_type['model']} matches {dev_type}")
         else:
             print("Something went wrong with getting Dev Type ID")
 
@@ -97,6 +106,9 @@ def device_creator(task):
 
 
 if __name__ == "__main__":
+    response = input("Do you want to gen a config first? (y/N): ")
+    if response == "y":
+        config_gen()
     nr = InitNornir(config_file="config.yaml")
     results = nr.run(task=device_creator)
     print_result(results)

@@ -1,7 +1,7 @@
 import requests
 import json
 
-base_url = "http://localhost:8000/api"
+base_url = "http://10.10.21.196:8000/api"
 
 headers = {
     'accept': 'application/json',
@@ -79,8 +79,8 @@ def get_tenants():
 
 if __name__ == "__main__":
     # print(json.dumps(get_dev_roles(), indent=2))
-    # print(json.dumps(get_dev_types(), indent=2))
+    print(json.dumps(get_dev_types(), indent=2))
     # print(json.dumps(get_manufacturers(), indent=2))
     # print(json.dumps(get_sites(), indent=2))
     # print(json.dumps(get_devices(), indent=2))
-    print(json.dumps(get_tenants(), indent=2))
+    # print(json.dumps(get_tenants(), indent=2))

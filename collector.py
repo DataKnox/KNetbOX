@@ -36,7 +36,7 @@ def get_inv_details(task):
         interface['media'] = int['media_type']
         interface['active'] = int['link_status']
         results['interfaces'].append(interface)
-    return Result(host=task.host, result=results)
+    return results
 
 
 if __name__ == "__main__":

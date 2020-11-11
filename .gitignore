@@ -2,3 +2,6 @@
 __pycache__/configer.cpython-39.pyc
 __pycache__/pinger.cpython-39.pyc
 nornir.log
+__pycache__/collector.cpython-39.pyc
+__pycache__/knetbox_getter.cpython-39.pyc
+__pycache__/collector.cpython-39.pyc
