@@ -1,4 +1,4 @@
-from pinger import test_hosts
+from pypinger import pyping
 import yaml
 
 
@@ -21,7 +21,7 @@ def config_gen():
     }
     f = open('config.yaml', 'w')
     yaml.dump(config, f, allow_unicode=True)
-    hosts = test_hosts()
+    hosts = pyping()
     user = input("Username (default to cisco): ")
     if not user:
         user = 'cisco'

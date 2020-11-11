@@ -18,14 +18,17 @@ nb = pynetbox.api(
     'http://10.10.21.196:8000',
     token='0123456789abcdef0123456789abcdef01234567')
 
-print(nb.dcim.sites.all())
+site = print(nb.dcim.sites.get(name="Homelab"))
+print(site._full_cache)
 print(nb.dcim.device_roles.all())
 print(nb.dcim.manufacturers.all())
 print(nb.dcim.device_types.all())
 
 
 def device_creator(task):
-    device = task.run(task=get_inv_details)
+    device = task.run(task=get_inv_details,
+                      severity_level=logging.DEBUG)[0].result
+    print(device)
     hostname = device['hostname']
     print(nb.dcim.sites.all())
     site = input("Choose a site from above list: ")
@@ -49,9 +52,7 @@ def device_creator(task):
     return Result(host=task.host, result=results)
 
 
-device_creator()
-
-# if __name__ == "__main__":
-#     nr = InitNornir(config_file="config.yaml")
-#     results = nr.run(task=device_creator)
-#     print_result(results)
+if __name__ == "__main__":
+    nr = InitNornir(config_file="config.yaml")
+    results = nr.run(task=device_creator)
+    print_result(results)

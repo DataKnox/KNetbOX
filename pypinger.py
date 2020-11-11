@@ -5,7 +5,7 @@ import platform
 import argparse
 
 
-def test_hosts():
+def pyping():
     parser = argparse.ArgumentParser()
     parser.add_argument('-s', '--subnet', type=str,
                         dest="subnet", help='Provide topology name.')
@@ -18,7 +18,7 @@ def test_hosts():
     alive_hosts = []
 
     current_os = platform.system().lower()
-    print(current_os)
+    # print(current_os)
 
     network = ipaddress.ip_network(subnet)
 
@@ -41,4 +41,4 @@ def test_hosts():
 
 
 if __name__ == "__main__":
-    test_hosts()
+    pyping()
