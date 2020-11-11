@@ -9,6 +9,8 @@ def test_hosts():
     network = ipaddress.ip_network(subnet)
     for i in network.hosts():
         i = str(i)
+        if (i == '10.15.0.1') or (i == '10.15.0.2'):
+            continue
         toping = subprocess.Popen(['ping', '-c', '1', i], stdout=PIPE)
         output = toping.communicate()[0]
         hostalive = toping.returncode
