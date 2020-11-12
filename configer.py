@@ -10,7 +10,6 @@ def config_gen():
                 'host_file': 'inventory.yaml',
                 'group_file': 'groups.yaml'
             }
-
         },
         'runner': {
             'plugin': 'threaded',
